@@ -9,7 +9,7 @@ import Foundation
 
 class TriviaQuestionService {
     static func fetchQuestions(completion: @escaping ([TriviaQuestion]?) -> Void) {
-        let url = URL(string: "https://opentdb.com/api.php?amount=5&difficulty=easy&type=multiple")!
+        let url = URL(string: "https://opentdb.com/api.php?amount=5&difficulty=easy")!
         
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             guard error == nil else {
@@ -30,7 +30,8 @@ class TriviaQuestionService {
                     return TriviaQuestion(
                         question: apiQuestion.question.decodingHTMLEntities(),
                         correctAnswer: apiQuestion.correct_answer.decodingHTMLEntities(),
-                        incorrectAnswers: apiQuestion.incorrect_answers.map { $0.decodingHTMLEntities() }, type: <#String#>
+                        incorrectAnswers: apiQuestion.incorrect_answers.map { $0.decodingHTMLEntities() },
+                        type: apiQuestion.type
                     )
                 }
                 completion(questions)

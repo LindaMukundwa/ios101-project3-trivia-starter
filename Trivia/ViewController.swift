@@ -21,6 +21,14 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = view.bounds
+        gradientLayer.colors = [
+            UIColor.systemPink.cgColor,
+            UIColor.systemOrange.cgColor
+        ]
+        view.layer.insertSublayer(gradientLayer, at: 0)
         setupButtons()
         loadQuestions()
     }
@@ -109,7 +117,12 @@ class ViewController: UIViewController {
         }
         
         let currentQuestion = quiz.getCurrentQuestion()
-        if selectedAnswerIndex == currentQuestion.correctAnswerIndex {
+        
+        // Compare the selected answer with correct answer
+        let selectedAnswer = currentQuestion.answers[selectedAnswerIndex]
+        let correctAnswer = currentQuestion.answers[currentQuestion.correctAnswerIndex]
+        
+        if selectedAnswer == correctAnswer {
             quiz.score += 1
         }
         
@@ -123,11 +136,13 @@ class ViewController: UIViewController {
     }
     
     func showFinalScore() {
-        let alert = UIAlertController(
-            title: "Quiz Completed",
-            message: "Your score: \(quiz.score)/\(quiz.questions.count)",
-            preferredStyle: .alert
-        )
+        let percentage = Int(Double(quiz.score) / Double(quiz.questions.count) * 100)
+        let message = """
+        You got \(quiz.score) out of \(quiz.questions.count) correct!
+        Score: \(percentage)%
+        """
+        
+        let alert = UIAlertController(title: "Quiz Complete", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Play Again", style: .default) { _ in
             self.resetButtonTapped(self.resetButton)
         })
