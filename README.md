@@ -10,17 +10,18 @@ Time spent: **5** hours spent in total
 
 The following **required** functionality is completed:
 
-- [✓] User can view the current question and 4 different answers
-- [✓] User can view the next question after tapping an answer
-- [✓] User can answer at least 3 different questions
+- [✓] User can view and answer at least 5 trivia questions.
+- [✓] App retrieves question data from the Open Trivia Database API.
+- [✓] Fetch a different set of questions if the user indicates they would like to reset the game.
+- [✓] Users can see score after submitting all questions.
+- [✓] True or False questions only have two options.
 
 
 The following **optional** features are implemented:
 
-- [ ] User can use the vertical orientation of the app on any device
-- [ ] User can track the question they are on and how many questions are left
-- [ ] User can see how many questions they got correct after answering all questions
-- [ ] User should be able to restart the game after they've finished answering all questions
+  
+- [ ] Allow the user to choose a specific category of questions.
+- [ ] Provide the user feedback on whether each question was correct before navigating to the next.
 
 The following **additional** features are implemented:
 
@@ -28,11 +29,11 @@ The following **additional** features are implemented:
 
 ## Video Walkthrough
 
-[Guide]](https://imgur.com/a/CuxkyTa) .
+[Guide]]((https://imgur.com/a/33fhixL) .
 
 ## Notes
 
-I faced challenges understanding different features since I couldn't attend last session while I was at a conference so a lot of the connections between the UI and view controller were hard to understand.
+I faced challenges understanding different features about accessing the API and also getting my design to be the same as the demo.
 
 ## License
 
