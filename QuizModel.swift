@@ -12,31 +12,37 @@ struct Question {
 }
 
 class Quiz {
-    var questions: [Question] = []
-    var currentQuestionIndex: Int = 0
-
-    init() {
-        // Add at least 3 questions
-        questions.append(Question(questionText: "What is the capital of France?",
-                                  answers: ["Paris", "London", "Berlin", "Madrid"],
-                                  correctAnswerIndex: 0))
-        questions.append(Question(questionText: "What is 2 + 2?",
-                                  answers: ["3", "4", "5", "6"],
-                                  correctAnswerIndex: 1))
-        questions.append(Question(questionText: "What is the largest planet?",
-                                  answers: ["Earth", "Jupiter", "Mars", "Saturn"],
-                                  correctAnswerIndex: 1))
-    }
-
-    func getCurrentQuestion() -> Question {
-        return questions[currentQuestionIndex]
-    }
-
-    func moveToNextQuestion() {
-        if currentQuestionIndex < questions.count - 1 {
-            currentQuestionIndex += 1
-        } else {
-            currentQuestionIndex = 0 // Restart the quiz
+    var questions: [TriviaQuestion] = []
+        var currentQuestionIndex = 0
+        var score = 0
+    
+    // updated current question to handle difference between multiple choice or true/false
+    func getCurrentQuestion() -> (questionText: String, answers: [String], correctAnswerIndex: Int) {
+        guard currentQuestionIndex < questions.count else {
+            return ("", [], -1)
         }
+        
+        let question = questions[currentQuestionIndex]
+        let answers = question.allAnswers
+        let correctAnswer = question.correctAnswer
+        
+        // For True/False questions, we need to map "True"/"False" to the API's actual answers
+        let correctIndex: Int
+        if question.type == "boolean" {
+            correctIndex = (correctAnswer.lowercased() == "true") ? 0 : 1
+        } else {
+            correctIndex = answers.firstIndex(of: correctAnswer) ?? 0
+        }
+        
+        return (question.question, answers, correctIndex)
     }
-}
+        
+        func moveToNextQuestion() {
+            currentQuestionIndex += 1
+        }
+        
+        func reset() {
+            currentQuestionIndex = 0
+            score = 0
+            questions = []
+        }}
